@@ -1,4 +1,7 @@
 import json
+from tkinter import *
+import tkinter.scrolledtext as st
+import re
 
 
 def check(tokens, token_class, token_value):
@@ -216,7 +219,7 @@ def prog():
             if symbol.isdigit():
                 buffer += symbol
             else:
-                #Семантическая операция 3
+                # Семантическая операция 3
                 if operation or separator:
                     check(tokens, 'N', buffer)
                     output_sequence += tokens['N'][buffer] + ' '
@@ -282,4 +285,128 @@ def prog():
             json.dump(data, write_file, indent=4, ensure_ascii=False)
 
 
-prog()
+def write_txt(data):
+    with open('resources/python.txt', 'w') as file:
+        file.write(data)
+
+
+def clicked():
+    write_txt(codetxt.get("1.0", "end"))
+
+    tokenstext.delete("1.0", END)
+    Wtext.delete("1.0", END)
+    Rtext.delete("1.0", END)
+    Otext.delete("1.0", END)
+    Ntext.delete("1.0", END)
+    Itext.delete("1.0", END)
+    Ctext.delete("1.0", END)
+
+    prog()
+
+    fw = open('gen/W.json', 'r')
+    textw = fw.read()
+    textw = textw.replace("    ", "")
+    textw = textw.replace('"', "")
+    textw = textw.replace(',', "")
+    textw = textw[2:-1]
+    Wtext.insert("1.0", textw)
+    fw.close()
+
+    fr = open('gen/R.json', 'r')
+    textr = fr.read()
+    textr = textr.replace("    ", "")
+    textr = textr.replace('"', "")
+    regex = r'(?<!,),(?!,)'
+    textr = re.sub(regex, '', textr)
+    textr = textr[2:-1]
+    Rtext.insert("1.0", textr)
+    fr.close()
+
+    fo = open('gen/O.json', 'r')
+    texto = fo.read()
+    texto = texto.replace("    ", "")
+    texto = texto.replace('"', "")
+    texto = texto.replace(',', "")
+    texto = texto[2:-1]
+    Otext.insert("1.0", texto)
+    fo.close()
+
+    fn = open('gen/N.json', 'r')
+    textn = fn.read()
+    textn = textn.replace("    ", "")
+    textn = textn.replace('"', "")
+    textn = textn.replace(',', "")
+    textn = textn[2:-1]
+    Ntext.insert("1.0", textn)
+    fn.close()
+
+    fi = open('gen/I.json', 'r')
+    texti = fi.read()
+    texti = texti.replace("    ", "")
+    texti = texti.replace('"', "")
+    texti = texti.replace(',', "")
+    texti = texti[2:-1]
+    Itext.insert("1.0", texti)
+    fi.close()
+
+    fc = open('gen/C.json', 'r')
+    textc = fc.read()
+    textc = textc.replace("    ", "")
+    textc = textc.replace('"', "")
+    textc = textc.replace(',', "")
+    textc = textc.replace("\\", "")
+    textc = textc[2:-1]
+    Ctext.insert("1.0", textc)
+    fc.close()
+
+    f4 = open('gen/tokens.txt', 'r')
+    text = f4.read()
+    tokenstext.insert("1.0", text)
+    f4.close()
+
+
+window = Tk()
+window.title("LR1")
+
+window.geometry('1600x700')
+
+codetxt = st.ScrolledText(window)
+codetxt.place(x=40, y=0, width=410, height=250)
+
+tokenstext = st.ScrolledText(window)
+tokenstext.place(x=600, y=0, width=470, height=250)
+
+Wlb = Label(text="Лексемы служебных слов:", font=("Arial", 12))
+Wlb.place(x=35, y=280)
+Wtext = st.ScrolledText(window)
+Wtext.place(x=40, y=300, width=210, height=200)
+
+Rlb = Label(text="Лексемы разделителей:", font=("Arial", 12))
+Rlb.place(x=295, y=280)
+Rtext = st.ScrolledText(window)
+Rtext.place(x=300, y=300, width=210, height=200)
+
+Olb = Label(text="Лексемы операций:", font=("Arial", 12))
+Olb.place(x=555, y=280)
+Otext = st.ScrolledText(window)
+Otext.place(x=560, y=300, width=200, height=200)
+
+Nlb = Label(text="Лексемы числовых констант:", font=("Arial", 12))
+Nlb.place(x=815, y=280)
+Ntext = st.ScrolledText(window)
+Ntext.place(x=820, y=300, width=210, height=200)
+
+Ilb = Label(text="Лексемы идентификаторов:", font=("Arial", 12))
+Ilb.place(x=1075, y=280)
+Itext = st.ScrolledText(window)
+Itext.place(x=1080, y=300, width=210, height=200)
+
+Clb = Label(text="Лексемы символьных констант:", font=("Arial", 12))
+Clb.place(x=1335, y=280)
+Ctext = st.ScrolledText(window)
+Ctext.place(x=1340, y=300, width=210, height=200)
+
+btngo = Button(window, text="Выполнить \n преобразование", command=clicked, font=("Arial", 10))
+btngo.place(x=470, y=90, width=110, height=50)
+
+window.mainloop()
