@@ -1,0 +1,41 @@
+
+    import java.util.ArrayList;
+    
+    static class test {
+            public static Unknown<?> call(Unknown<?> a, Unknown<?> b){
+                return y + z;
+            }
+        };
+
+public class Program {
+    class Unknown<T> {
+        private T ref;
+
+        public Unknown(T ref) {
+            this.ref = ref;
+        }
+        
+        public T get() {
+            return ref;
+        }
+        
+        public void set(T a) {
+            this.ref = a;
+        }
+    };
+    
+    public static void main(String []args)
+    {
+        ArrayList<Unknown<?>> x = new ArrayList<Unknown<?>>(){{
+            add(Unknown(1));
+            add(Unknown(2));
+            add(Unknown(3));
+            add(Unknown(4));
+            add(Unknown(5));
+            }};
+        Unknown<?> y = x[1];
+        Unknown<?> z = x[3];
+        
+        System.out.println(test.call(y,z));
+    }
+}

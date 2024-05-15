@@ -1,0 +1,1 @@
+x [ 1, 2, 3, 4, 5 ] = y x 1 АЭМ = z x 3 АЭМ = test(a,b) НФ y z + return КФ print test y z 2Ф 1Ф

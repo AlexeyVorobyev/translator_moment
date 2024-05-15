@@ -40,7 +40,6 @@ compareAugAssignNameToSymbol = {
 }
 
 
-
 def calcTreeNodes(node: AST | Module, result=0) -> int:
     if isinstance(node, list):
         return result + sum([calcTreeNodes(node, 0) for node in node])
