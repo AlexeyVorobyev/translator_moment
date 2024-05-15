@@ -384,7 +384,7 @@ def clicked2():
 
 
 window = Tk()
-window.title("LR2")
+window.title("LR3")
 
 f1 = open('resources/python.txt', 'r')
 text = f1.read()
