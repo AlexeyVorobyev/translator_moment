@@ -368,7 +368,7 @@ def clicked():
 window = Tk()
 window.title("LR1")
 
-window.geometry('1600x700')
+window.geometry('1600x550')
 
 codetxt = st.ScrolledText(window)
 codetxt.place(x=40, y=0, width=410, height=250)
