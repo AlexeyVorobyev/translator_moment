@@ -1,0 +1,1 @@
+arr [1, 2] = x 2 + x 2 / == M1 УПЛ print hooray 1Ф М2 БП М1 print arr 1 АЭМ 1Ф М2

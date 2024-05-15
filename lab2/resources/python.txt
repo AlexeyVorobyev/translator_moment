@@ -1,0 +1,11 @@
+arr = [1,2]
+if x + 2 == x/2:
+	print("hooray")
+else:
+	print(arr[1])
+
+
+
+
+
+
